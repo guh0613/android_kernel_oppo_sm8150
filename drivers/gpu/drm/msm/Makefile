@@ -2,6 +2,7 @@
 ccflags-y := -Iinclude/drm -Idrivers/gpu/drm/msm -Idrivers/gpu/drm/msm/dsi-staging -Idrivers/gpu/drm/msm/dp
 ccflags-y += -Idrivers/gpu/drm/msm/display-manager
 ccflags-$(CONFIG_DRM_MSM_DSI) += -Idrivers/gpu/drm/msm/dsi
+ccflags-y += -Idrivers/gpu/drm/msm/oplus
 ccflags-$(CONFIG_DRM_MSM_DSI_PLL) += -Idrivers/gpu/drm/msm/dsi
 ccflags-y += -Idrivers/gpu/drm/msm/sde
 ccflags-y += -Idrivers/media/platform/msm/sde/rotator
@@ -55,8 +56,13 @@ msm_drm-y := \
 	sde_hdcp_1x.o \
 	sde_hdcp_2x.o
 
-msm_drm-$(CONFIG_DEBUG_FS) += sde_dbg.o \
+##ifdef OPLUS_BUG_STABILITY
+msm_drm-y += sde_dbg.o \
 	sde_dbg_evtlog.o \
+###else
+##msm_drm-$(CONFIG_DEBUG_FS) += sde_dbg.o \
+##	sde_dbg_evtlog.o \
+###endif
 
 msm_drm-$(CONFIG_DRM_MSM_HDMI) += hdmi/hdmi.o \
 	hdmi/hdmi_audio.o \
@@ -219,5 +225,19 @@ msm_drm-$(CONFIG_DRM_MSM) += \
 	msm_prop.o \
 	msm_fence.o \
 	msm_debugfs.o
+
+msm_drm-y += oplus/oppo_mm_kevent_fb.o \
+	oplus/oppo_mm_kevent.o \
+	oplus/oppo_dsi_support.o \
+	oplus/oppo_display_private_api.o \
+	oplus/oppo_dc_diming.o \
+	oplus/oppo_onscreenfingerprint.o \
+	oplus/oppo_aod.o \
+	oplus/oppo_ffl.o \
+	oplus/oppo_display_panel.o \
+	oplus/oppo_display_panel_power.o \
+	oplus/oppo_display_panel_seed.o \
+	oplus/oppo_display_panel_common.o \
+	oplus/oppo_display_panel_hbm.o
 
 obj-$(CONFIG_DRM_MSM)	+= msm_drm.o

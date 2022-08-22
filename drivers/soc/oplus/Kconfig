@@ -1,0 +1,11 @@
+source "drivers/soc/oplus/system/Kconfig"
+#endif /* VENDOR_EDIT */
+
+#ifdef OPLUS_FEATURE_LOWMEM_DBG
+source "drivers/soc/oplus/lowmem_dbg/Kconfig"
+##endif /* OPLUS_FEATURE_LOWMEM_DBG */
+
+#ifdef OPLUS_FEATURE_MEMLEAK_DETECT
+#Add for svelte
+source "drivers/soc/oplus/svelte/Kconfig"
+#endif /* OPLUS_FEATURE_MEMLEAK_DETECT */

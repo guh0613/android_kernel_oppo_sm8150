@@ -43,7 +43,12 @@ obj-$(CONFIG_BLK_DEV_DM_BUILTIN) += dm-builtin.o
 obj-$(CONFIG_DM_BUFIO)		+= dm-bufio.o
 obj-$(CONFIG_DM_BIO_PRISON)	+= dm-bio-prison.o
 obj-$(CONFIG_DM_CRYPT)		+= dm-crypt.o
+#use variable concatination for logical and BRAND_SHOW_FLAG=oneplus CONFIG_ARCH_SM8150=y
+ifeq ($(BRAND_SHOW_FLAG)$(CONFIG_ARCH_SM8150), oneplusy)
+obj-$(CONFIG_DM_DEFAULT_KEY)	+= dm-default-key-op.o
+else
 obj-$(CONFIG_DM_DEFAULT_KEY)	+= dm-default-key.o
+endif
 obj-$(CONFIG_DM_DELAY)		+= dm-delay.o
 obj-$(CONFIG_DM_FLAKEY)		+= dm-flakey.o
 obj-$(CONFIG_DM_MULTIPATH)	+= dm-multipath.o dm-round-robin.o

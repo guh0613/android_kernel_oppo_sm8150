@@ -1,0 +1,6 @@
+#ifdef OPLUS_ARCH_EXTENDS
+config OPPO_CRITICALLOG
+bool "config oppo kevent feedback"
+help
+    define this config to init oppo kevent feedback driver.
+#endif /* OPLUS_ARCH_EXTENDS */
