@@ -11,7 +11,7 @@ jobs:
     - name: "Checkout kernel source"                  # Clone the kernel source.
       uses: actions/checkout@v3.3.0
     - name: "Android kernel build"                    # Build kernel with lemniskett/android-kernel-actions.
-      uses: lemniskett/android-kernel-actions@master
+      uses: guh0613/android-kernel-actions@master
       env:
         PYTHON_VERSION: 2
       with:
