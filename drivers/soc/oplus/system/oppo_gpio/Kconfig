@@ -1,0 +1,6 @@
+#change 'y' to 'n', if you want fo close this controller
+config OPLUS_OPPO_GPIO
+    bool "oppo gpio controller"
+    default n
+    help
+      define this config to control oppo gpio.
