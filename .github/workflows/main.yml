@@ -1,0 +1,24 @@
+name: "Build kernel"             # Description of the workflow.
+on:
+  push:
+    branches: oppo/sm8150_s_12.1_oppo_reno10  # Branch to build.
+  workflow_dispatch:                                  # Allow to manually trigger workflow.
+jobs:
+  build:
+    name: "Build kernel"
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Checkout kernel source"                  # Clone the kernel source.
+      uses: actions/checkout@v3.3.0
+    - name: "Android kernel build"                    # Build kernel with lemniskett/android-kernel-actions.
+      uses: lemniskett/android-kernel-actions@master
+      with:
+        arch: arm64                                   # Specify arch
+        compiler: gcc/9                               # Specify toolchain to use
+        defconfig: 19081_debug_defconfig                    # Specify defconfig to use
+        image: Image.gz-dtb                           # Specify final build file
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.2
+      with:
+    # A file, directory or wildcard pattern that describes what to upload
+        path: ${{ steps.build.outputs.outfile }}
