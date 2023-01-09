@@ -16,7 +16,7 @@ jobs:
         PYTHON_VERSION: 2
       with:
         arch: arm64                                   # Specify arch
-        compiler: gcc/10                               # Specify toolchain to use
+        compiler: gcc/8                               # Specify toolchain to use
         defconfig: 19081_debug_defconfig                    # Specify defconfig to use
         image: Image.gz-dtb                           # Specify final build file
     - name: Upload a Build Artifact
