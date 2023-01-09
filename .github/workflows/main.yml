@@ -12,9 +12,11 @@ jobs:
       uses: actions/checkout@v3.3.0
     - name: "Android kernel build"                    # Build kernel with lemniskett/android-kernel-actions.
       uses: lemniskett/android-kernel-actions@master
+      env:
+        PYTHON_VERSION: 2
       with:
         arch: arm64                                   # Specify arch
-        compiler: aosp-clang/master/clang-r450784d/binutils                               # Specify toolchain to use
+        compiler: gcc/9                               # Specify toolchain to use
         defconfig: 19081_debug_defconfig                    # Specify defconfig to use
         image: Image.gz-dtb                           # Specify final build file
     - name: Upload a Build Artifact
