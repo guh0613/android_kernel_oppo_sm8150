@@ -14,7 +14,7 @@ jobs:
       uses: lemniskett/android-kernel-actions@master
       with:
         arch: arm64                                   # Specify arch
-        compiler: aosp-clang/master/clang-r416183b                               # Specify toolchain to use
+        compiler: aosp-clang/android-msm-coral-4.14-android12L/clang-r416183b                               # Specify toolchain to use
         defconfig: 19081_debug_defconfig                    # Specify defconfig to use
         image: Image.gz-dtb                           # Specify final build file
     - name: Upload a Build Artifact
