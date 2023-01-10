@@ -150,7 +150,7 @@ struct gsi_chan_ctx {
 	struct completion compl;
 	bool allocated;
 	atomic_t poll_mode;
-	union __packed gsi_channel_scratch scratch;
+	union  gsi_channel_scratch scratch;
 	struct gsi_chan_stats stats;
 	bool enable_dp_stats;
 	bool print_dp_stats;
@@ -169,12 +169,12 @@ struct gsi_evt_ctx {
 	struct completion compl;
 	struct gsi_chan_ctx *chan;
 	atomic_t chan_ref_cnt;
-	union __packed gsi_evt_scratch scratch;
+	union  gsi_evt_scratch scratch;
 	struct gsi_evt_stats stats;
 };
 
 struct gsi_ee_scratch {
-	union __packed {
+	union  {
 		struct {
 			uint32_t inter_ee_cmd_return_code:3;
 			uint32_t resvd1:2;
@@ -245,7 +245,7 @@ enum gsi_re_type {
 	GSI_RE_COAL = 0x8,
 };
 
-struct __packed gsi_tre {
+struct  gsi_tre {
 	uint64_t buffer_ptr;
 	uint16_t buf_len;
 	uint16_t resvd1;
@@ -259,7 +259,7 @@ struct __packed gsi_tre {
 	uint8_t resvd2;
 };
 
-struct __packed gsi_gci_tre {
+struct  gsi_gci_tre {
 	uint64_t buffer_ptr:41;
 	uint64_t resvd1:7;
 	uint64_t buf_len:16;
@@ -271,7 +271,7 @@ struct __packed gsi_gci_tre {
 
 #define GSI_XFER_COMPL_TYPE_GCI 0x28
 
-struct __packed gsi_xfer_compl_evt {
+struct  gsi_xfer_compl_evt {
 	union {
 		uint64_t xfer_ptr;
 		struct {
@@ -303,7 +303,7 @@ enum gsi_err_code {
 	GSI_HWO_1_ERR = 0x8
 };
 
-struct __packed gsi_log_err {
+struct  gsi_log_err {
 	uint32_t arg3:4;
 	uint32_t arg2:4;
 	uint32_t arg1:4;
