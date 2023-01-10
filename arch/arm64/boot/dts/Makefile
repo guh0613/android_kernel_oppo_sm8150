@@ -40,18 +40,7 @@ else
         dts-dirs += 19801
 		dts-dirs += 19863
     else
-        dts-dirs += 19365
-        dts-dirs += 19567
-        dts-dirs += 19031
-        dts-dirs += 19111
-        dts-dirs += 20261
-        dts-dirs += 206B1
-        dts-dirs += 18115
         dts-dirs += 19081
-        dts-dirs += 18501
-        dts-dirs += 18503
-        dts-dirs += 20711
-        dts-dirs += 20331
     endif
 endif
 #endif
