@@ -1,26 +1,31 @@
-name: "Build kernel"             # Description of the workflow.
+name: "Build kernel"             
 on:
   push:
-    branches: oppo/sm8150_s_12.1_oppo_reno10  # Branch to build.
-  workflow_dispatch:                                  # Allow to manually trigger workflow.
+    branches: oppo/sm8150_s_12.1_oppo_reno10  
+  workflow_dispatch:                                  
 jobs:
   build:
     name: "Build kernel"
     runs-on: ubuntu-latest
     steps:
-    - name: "Checkout kernel source"                  # Clone the kernel source.
+    - name: "Checkout kernel source"                  
       uses: actions/checkout@v3.3.0
-    - name: "Android kernel build"                    # Build kernel with lemniskett/android-kernel-actions.
+    - name: Checkout AnyKernel
+      uses: actions/checkout@v3.3.0
+      with:
+        repository: guh0613/AnyKernel3
+        path: zipper
+    - name: "Android kernel build"                    
       uses: guh0613/android-kernel-actions@master
       id: build
       env:
         PYTHON_VERSION: 2
       with:
-        arch: arm64                                   # Specify arch
-        compiler: clang/10/binutils                               # Specify toolchain to use
-        defconfig: 19081_debug_defconfig                    # Specify defconfig to use
-        image: Image.gz-dtb                           # Specify final build file
-    - name: Upload kernel output
+        arch: arm64                                  
+        compiler: clang/10/binutils                               
+        defconfig: 19081_debug_defconfig                    
+        image: Image-dtb                           
+    - name: Upload final output
       uses: actions/upload-artifact@v3.1.2
       with:
-        path: out/arch/arm64/boot/*
+        path: ${{ steps.build.outputs.outfile }}
