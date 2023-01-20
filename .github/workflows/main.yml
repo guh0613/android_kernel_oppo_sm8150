@@ -28,4 +28,4 @@ jobs:
     - name: Upload final output
       uses: actions/upload-artifact@v3.1.2
       with:
-        path: ${{ steps.build.outputs.outfile }}
+        path: /github/workspace/zipper/*.zip
