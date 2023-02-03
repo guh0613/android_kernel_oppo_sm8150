@@ -64,22 +64,7 @@ void setenforce(bool enforce)
 
 bool getenforce()
 {
-#if LINUX_VERSION_CODE > KERNEL_VERSION(4, 14, 0)
-#ifdef CONFIG_SECURITY_SELINUX_DISABLE
-	if (selinux_state.disabled) {
-		return false;
-	}
-#endif
-
-#ifdef CONFIG_SECURITY_SELINUX_DEVELOP
-	return selinux_state.enforcing;
-#else
-	return false;
-#endif
-#else
-    return selinux_enabled;
-#endif
-
+    return true;
 }
 
 bool is_ksu_domain()
