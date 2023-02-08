@@ -2,6 +2,9 @@
 #include "objsec.h"
 #include "linux/version.h"
 #include "../klog.h" // IWYU pragma: keep
+#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 14, 163)
+#include "avc.h"
+#endif
 
 #define KERNEL_SU_DOMAIN "u:r:su:s0"
 
@@ -53,19 +56,49 @@ if (!is_domain_permissive) {
 
 void setenforce(bool enforce)
 {
-#if LINUX_VERSION_CODE > KERNEL_VERSION(4, 14, 0)
 #ifdef CONFIG_SECURITY_SELINUX_DEVELOP
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 14, 163)
 	selinux_state.enforcing = enforce;
-#endif
 #else
-    selinux_enabled = enforce;
+	selinux_enforcing = enforce;
+#endif
 #endif
 }
 
 bool getenforce()
 {
-    return true;
+#ifdef CONFIG_SECURITY_SELINUX_DISABLE
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 14, 163)
+	if (selinux_state.disabled) {
+#else
+	if (selinux_disabled) {
+#endif
+		return false;
+	}
+#endif
+
+#ifdef CONFIG_SECURITY_SELINUX_DEVELOP
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 14, 163)
+	return selinux_state.enforcing;
+#else
+	return selinux_enforcing;
+#endif
+#else
+	return true;
+#endif
 }
+
+#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 11, 0)
+/*
+ * get the subjective security ID of the current task
+ */
+static inline u32 current_sid(void)
+{
+	const struct task_security_struct *tsec = current_security();
+
+	return tsec->sid;
+}
+#endif
 
 bool is_ksu_domain()
 {
