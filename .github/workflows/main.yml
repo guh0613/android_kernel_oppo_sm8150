@@ -10,6 +10,8 @@ jobs:
     steps:
     - name: "Checkout kernel source"                  
       uses: actions/checkout@v3.3.0
+      with:
+        submodules: true
     - name: Checkout AnyKernel
       uses: actions/checkout@v3.3.0
       with:
