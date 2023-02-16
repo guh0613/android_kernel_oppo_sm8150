@@ -8,16 +8,20 @@ jobs:
     name: "Build kernel"
     runs-on: ubuntu-latest
     steps:
-    - name: "Checkout kernel source"                  
+    - name: Checkout kernel source                  
+      uses: actions/checkout@v3.3.0
+    - name: Checkout KernelSU
       uses: actions/checkout@v3.3.0
       with:
-        submodules: true
+        repository: guh0613/KernelSU
+        path: KernelSU
+        fetch-depth: 0
     - name: Checkout AnyKernel
       uses: actions/checkout@v3.3.0
       with:
         repository: guh0613/AnyKernel3
         path: zipper
-    - name: "Android kernel build"                    
+    - name: Android kernel build                    
       uses: guh0613/android-kernel-actions@master
       id: build
       env:
