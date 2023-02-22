@@ -1,7 +1,9 @@
 name: "Build kernel"             
 on:
   push:
-    branches: ksu  
+    branches: ksu 
+  schedule:
+    - cron: 0 16 * * * 
   workflow_dispatch:                                  
 jobs:
   build:
@@ -13,7 +15,7 @@ jobs:
     - name: Checkout KernelSU
       uses: actions/checkout@v3.3.0
       with:
-        repository: guh0613/KernelSU
+        repository: tiann/KernelSU
         path: KernelSU
         fetch-depth: 0
     - name: Checkout AnyKernel
